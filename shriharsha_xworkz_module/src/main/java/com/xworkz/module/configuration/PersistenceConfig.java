@@ -22,13 +22,13 @@ public class PersistenceConfig {
     public PersistenceConfig(){
         System.out.println("Running persistenceConfig class...");
     }
-@Bean
+    @Bean
     public DataSource dataSource(){
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/dbname");
-        dataSource.setPassword("");
-        dataSource.setUsername("");
+        dataSource.setUrl("jdbc:mysql://localhost:3306/generaldb");
+        dataSource.setPassword("@Mythsri.com10");
+        dataSource.setUsername("root");
         return dataSource;
     }
 
