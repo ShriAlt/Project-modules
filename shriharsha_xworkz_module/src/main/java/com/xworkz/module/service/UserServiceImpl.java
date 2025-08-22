@@ -24,6 +24,7 @@ public class UserServiceImpl implements UserService {
     private JavaMailSender mailSender;
     @Autowired
     private UserRepository  userRepository;
+
     @Autowired
     private OtpRepository otpRepository;
 
