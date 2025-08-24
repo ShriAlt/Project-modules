@@ -32,7 +32,6 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public String validateAndSave(UserDTO userDTO) {
         UserEntity userEntity=new UserEntity();
-
          BeanUtils.copyProperties(userDTO,userEntity);//source and target this will copy the properties
 
         userRepository.save(userEntity);//save() method is from JpaRepository
