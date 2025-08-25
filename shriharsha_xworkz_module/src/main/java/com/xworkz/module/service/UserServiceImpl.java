@@ -36,7 +36,6 @@ public class UserServiceImpl implements UserService {
 
         userRepository.save(userEntity);//save() method is from JpaRepository
 
-
         return "false";
     }
 
