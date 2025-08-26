@@ -35,7 +35,6 @@ public class UserServiceImpl implements UserService {
          BeanUtils.copyProperties(userDTO,userEntity);//source and target this will copy the properties
 
         userRepository.save(userEntity);//save() method is from JpaRepository
-
         return "false";
     }
 
