@@ -27,6 +27,7 @@
         <h2 class="text-center mb-4">OTP Verification</h2>
         <p class="text-center">Please enter the 6-digit OTP sent to your email.</p>
         <form id="otpForm" action="verifyOtp" method="post">
+            <span>${error}</span>
             <div class="mb-3">
                 <label for="otp" class="form-label">OTP</label>
                 <input type="text" class="form-control text-center" id="otp" name="otp"
@@ -36,7 +37,7 @@
             <button type="submit" class="btn btn-primary w-100" name="verify">Verify</button>
         </form>
         <p class="text-center mt-3">
-            Didn't receive the OTP? <a href="#" id="resendOtp">Resend OTP</a>
+            Didn't receive the OTP? <a href="" id="resendOtp">Resend OTP</a>
         </p>
     </div>
 </div>

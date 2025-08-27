@@ -30,17 +30,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public String validateAndSave(UserDTO userDTO) {
+    public void validateAndSave(UserDTO userDTO) {
         UserEntity userEntity=new UserEntity();
          BeanUtils.copyProperties(userDTO,userEntity);//source and target this will copy the properties
 
         userRepository.save(userEntity);//save() method is from JpaRepository
-        return "false";
     }
 
     @Override
     public void sendOtpMail(String emailTo, String userName) {
-        List<OtpEntity> recentOtps = otpRepository.findRecentByEmail(emailTo);
+
+        List<OtpEntity> recentOtps = otpRepository.
+                findRecentByEmail(emailTo);
+
         long recentOtpCount=recentOtps.stream()
                 .filter(otp -> otp.getCreatedTime().isAfter(LocalDateTime.now().minusMinutes(15)))
                 .count();
