@@ -23,6 +23,7 @@
 <body>
 
 <div class="container">
+
     <div class="card">
         <h2 class="text-center mb-4">OTP Verification</h2>
         <p class="text-center">Please enter the 6-digit OTP sent to your email.</p>
