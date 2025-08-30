@@ -18,7 +18,6 @@
         #otp {
             letter-spacing: 10px; /* Adjust spacing between digits */
         }
-
     </style>
 </head>
 <body>
