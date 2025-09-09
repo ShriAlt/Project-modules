@@ -3,22 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Website</title>
+    <title>Sign In</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         body {
             background-color: #f8f9fa;
         }
-        .navbar-brand img {
-            height: 40px;
-            margin-right: 8px;
+        .card {
+            max-width: 500px;
+            margin: 100px auto;
+            padding: 30px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
 <body>
-
-<!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
     <div class="container">
         <a class="navbar-brand d-flex align-items-center" href="#">
@@ -32,16 +31,35 @@
 
         <ul class="navbar-nav ms-auto">
             <li class="nav-item">
-                <a href="signIn" class="btn btn-outline-primary nav-link">
+                <button class="btn btn-outline-primary" onclick="location.href='signIn.jsp'">
                     <i class="fa fa-user"></i> Login
-                </a>
+                </button>
             </li>
         </ul>
     </div>
 </nav>
-
+<div class="container">
+    <div class="card">
+        <h2 class="text-center mb-4">Sign In</h2>
+        <form action="login" method="post" id="loginForm">
+            <div class="mb-3">
+                <label for="username" class="form-label">Username or Email</label>
+                <input type="text" class="form-control" id="username" name="username" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Sign In</button>
+            <p class="text-center mt-3">
+                Don't have an account? <a href="signUp">Sign Up</a>
+            </p>
+        </form>
+    </div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
 
