@@ -6,5 +6,4 @@ public class PersistenceConfig {
         System.out.println("no args constructor of PersistenceConfig ");
     }
 
-
 }
