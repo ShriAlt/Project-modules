@@ -1,103 +1,174 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Registration</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Register | Game Store</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
     <style>
         body {
-            background-color: #f8f9fa;
+          min-height: 100vh;
+          display: flex;
+          flex-direction: column;
         }
-        .container {
-            margin-top: 50px;
+
+        .content {
+          flex: 1;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: 30px 15px;
+        }
+
+        .register-card {
+          width: 600px;
+          max-width: 95%;
+          border-radius: 15px;
+          overflow: hidden;
+        }
+
+        .card-header {
+          background: #2575fc;
+          color: white;
+          font-weight: bold;
+          text-align: center;
+          font-size: 1.25rem;
+          padding: 15px;
+        }
+
+        .form-control:focus {
+          box-shadow: none;
+          border-color: #2575fc;
+        }
+
+        button {
+          border-radius: 8px;
         }
     </style>
 </head>
+
 <body>
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
-    <div class="container">
-        <a class="navbar-brand d-flex align-items-center" href="#">
-            <img src="https://via.placeholder.com/40" alt="Logo">
-            <strong>My Website</strong>
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
 
-        <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-                <a href="signIn" class="btn btn-outline-primary nav-link">
-                    <i class="fa fa-user"></i> Login
-                </a>
-            </li>
-        </ul>
-    </div>
-</nav>
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">
-                    <h4>User Registration</h4>
-                </div>
-                <div class="card-body">
-                    <form>
-                        <div class="mb-3">
-                            <label for="fullName" class="form-label">Full Name</label>
-                            <input type="text" class="form-control" id="fullName" name="fullName" placeholder="Enter full name" required minlength="3" maxlength="50">
-                        </div>
-                        <div class="mb-3">
-                            <label for="username" class="form-label">Username</label>
-                            <input type="text" class="form-control" id="username" name="username" placeholder="Enter username" required minlength="4" maxlength="20">
-                        </div>
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="phone" class="form-label">Phone Number</label>
-                            <input type="tel" class="form-control" id="phone" name="phone" placeholder="Enter phone number" pattern="\\d{10}" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" required minlength="8" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$">
-                            <small class="form-text text-muted">Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character.</small>
-                        </div>
-                        <div class="mb-3">
-                            <label for="confirmPassword" class="form-label">Confirm Password</label>
-                            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirm password" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Gender</label>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="gender" id="genderMale" value="Male" required>
-                                <label class="form-check-label" for="genderMale">Male</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="gender" id="genderFemale" value="Female" required>
-                                <label class="form-check-label" for="genderFemale">Female</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="gender" id="genderOther" value="Other" required>
-                                <label class="form-check-label" for="genderOther">Other</label>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="address" class="form-label">Address</label>
-                            <textarea class="form-control" id="address" name="address" rows="3" placeholder="Enter address" required minlength="10" maxlength="100"></textarea>
-                        </div>
+<!-- Main Content -->
+<div class="content">
+    <div class="card register-card shadow-lg">
+        <div class="card-header">
+            <i class="fas fa-user-plus me-2"></i> Create Your Account
+        </div>
+        <div class="card-body p-4">
 
-                        <button type="submit" class="btn btn-primary">Register</button>
-                    </form>
+            <form action="register" id="registrationForm" method="POST">
+
+                <div class="row">
+                    <div class="mb-3 col-md-6">
+                        <label for="firstName" class="form-label">First Name</label>
+                        <input type="text" class="form-control" id="firstName" name="firstName" onchange="validateName()"
+                               placeholder="Enter first name" required>
+                        <span id="firstNameError" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3 col-md-6">
+                        <label for="lastName" class="form-label">Last Name</label>
+                        <input type="text" class="form-control" id="lastName" name="lastName" onchange="validateLastName()" placeholder="Enter last name"
+                               required>
+                        <span id="lastNameError" class="text-danger"></span>
+                    </div>
                 </div>
-            </div>
+
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email Address</label>
+                    <input type="email" class="form-control" id="email" name="email" onchange="validateEmail()" placeholder="name@example.com" required>
+                    <span id="emailError" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label for="phoneNumber" class="form-label">Phone Number</label>
+                    <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" onchange="validatePhoneNumber()" placeholder="Enter phone number" required>
+                    <span id="phoneError" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label for="dob" class="form-label">Date of Birth</label>
+                    <input type="date" class="form-control" id="dob" name="dob" onchange="validateDOB()" required>
+                    <span id="dateError" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Gender</label>
+                    <span id="genderError" class="text-danger"></span>
+                    <div class="d-flex gap-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="gender" id="genderMale" value="male"
+                                   onchange="validateGender()"
+                                   required>
+                            <label class="form-check-label" for="genderMale">Male</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="gender" id="genderFemale" value="female"
+                                   onchange="validateGender()"
+                                   required>
+                            <label class="form-check-label" for="genderFemale">Female</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="mb-3 col-md-6">
+                        <label for="country" class="form-label">Country</label>
+                        <span id="countryError" class="text-danger"></span>
+                        <select class="form-select" id="country" name="country" onchange="validateCountry()" required>
+                            <option value="">Select Country</option>
+                            <option value="India">India</option>
+                        </select>
+                    </div>
+                    <div class="mb-3 col-md-6">
+                        <label for="state" class="form-label">State</label>
+                        <span id="stateError" class="text-danger"></span>
+                        <input type="text" class="form-control" id="state"
+                               onchange="validateState()" name="state" placeholder="Enter state" required>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="mb-3 col-md-6">
+                        <label for="city" class="form-label">City</label>
+                        <input type="text" class="form-control" id="city" name="city" placeholder="Enter city" required>
+                    </div>
+                    <div class="mb-3 col-md-6">
+                        <label for="pinCode" class="form-label">Pin Code</label>
+                        <span id="pinCodeError" class="text-danger"></span>
+                        <input type="text" class="form-control" id="pinCode" name="pinCode" placeholder="Enter pin code" required>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <span id="passwordError" class="text-danger"></span>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" onchange="validatePasswords()" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="confirmPassword" class="form-label">Confirm Password</label>
+                    <span id="confirmPasswordError" class="text-danger"></span>
+                    <input type="password" class="form-control" id="confirmPassword" name="confirmPassword"
+                           onchange="validatePasswords()"
+                           placeholder="Re-enter password" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100" id="submitBtn" >Register</button>
+                <p class="text-center mt-3 mb-0">
+                    Already have an account? <a href="signIn" class="text-decoration-none">Login here</a>
+                </p>
+            </form>
         </div>
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="Sign-up-validationns.js"></script>
 </body>
+
 </html>

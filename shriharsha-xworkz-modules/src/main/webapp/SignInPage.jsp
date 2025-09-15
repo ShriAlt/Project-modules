@@ -1,65 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign In</title>
+    <title>Login | My Website</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
     <style>
         body {
-            background-color: #f8f9fa;
+          /* background: linear-gradient(135deg, #6a11cb, #2575fc); */
+          height: 100vh;
+          display: flex;
+          justify-content: center;
+          align-items: center;
         }
-        .card {
-            max-width: 500px;
-            margin: 100px auto;
-            padding: 30px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+        .login-card {
+          width: 400px;
+          max-width: 90%;
+          border-radius: 15px;
+        }
+
+        .form-control:focus {
+          box-shadow: none;
+          border-color: #2575fc;
         }
     </style>
 </head>
-<body>
-<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
-    <div class="container">
-        <a class="navbar-brand d-flex align-items-center" href="#">
-            <img src="https://via.placeholder.com/40" alt="Logo">
-            <strong>My Website</strong>
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
 
-        <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-                <button class="btn btn-outline-primary" onclick="location.href='signIn.jsp'">
-                    <i class="fa fa-user"></i> Login
-                </button>
-            </li>
-        </ul>
+<body>
+
+<!-- Login Form (Card) -->
+<div class="card login-card shadow-lg">
+    <div class="card-header text-center bg-primary text-white fw-bold">
+        <i class="fas fa-user-circle me-2"></i> Login
     </div>
-</nav>
-<div class="container">
-    <div class="card">
-        <h2 class="text-center mb-4">Sign In</h2>
-        <form action="login" method="post" id="loginForm">
+    <div class="card-body p-4">
+        <form action="/login" method="POST">
+
             <div class="mb-3">
-                <label for="username" class="form-label">Username or Email</label>
-                <input type="text" class="form-control" id="username" name="username" required>
+                <label for="email" class="form-label">Email address</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" required>
+                </div>
             </div>
+
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" name="password" required>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                </div>
             </div>
-            <button type="submit" class="btn btn-primary w-100">Sign In</button>
-            <p class="text-center mt-3">
-                Don't have an account? <a href="signUp">Sign Up</a>
-            </p>
+
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <!-- <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="rememberMe">
+                  <label class="form-check-label" for="rememberMe"> Remember Me </label>
+                </div> -->
+                <a href="#" class="small text-decoration-none">Forgot Password?</a>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Login</button>
         </form>
+        <p class="text-center mt-3 mb-0">
+            Don’t have an account? <a href="signUp" class="text-decoration-none">Register here</a>
+        </p>
     </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
-
-
