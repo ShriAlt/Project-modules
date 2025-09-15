@@ -31,8 +31,8 @@ public class UserDto implements Serializable {
 
     @NotBlank(message = "Password is required")
     @Size(min = 8, message = "Password must be at least 8 characters")
-//    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$",
-//            message = "Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character")
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$",
+            message = "Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character")
     private String password;
 
     @NotBlank(message = "Confirm password is required")
@@ -53,7 +53,7 @@ public class UserDto implements Serializable {
     @NotBlank(message = "enter your city")
     private String pinCode;
 
-//    @NotBlank(message = "Address is required")
-//    @Size(min = 10, max = 100, message = "Address must be between 10 and 100 characters")
-//    private String address;
+    @NotBlank(message = "Address is required")
+    @Size(min = 10, max = 100, message = "Address must be between 10 and 100 characters")
+    private String address;
 }

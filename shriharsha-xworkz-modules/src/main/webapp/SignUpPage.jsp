@@ -101,13 +101,13 @@
                     <span id="genderError" class="text-danger"></span>
                     <div class="d-flex gap-3">
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="gender" id="genderMale" value="male"
+                            <input class="form-check-input" type="radio" name="gender" id="genderMale" value="Male"
                                    onchange="validateGender()"
                                    required>
                             <label class="form-check-label" for="genderMale">Male</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="gender" id="genderFemale" value="female"
+                            <input class="form-check-input" type="radio" name="gender" id="genderFemale" value="Female"
                                    onchange="validateGender()"
                                    required>
                             <label class="form-check-label" for="genderFemale">Female</label>
