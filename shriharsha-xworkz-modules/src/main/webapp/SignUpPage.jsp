@@ -1,3 +1,4 @@
+<%@ page isELIgnored="true" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -61,7 +62,7 @@
         <div class="card-body p-4">
 
             <form action="register" id="registrationForm" method="POST">
-
+                <span>${error}</span>
                 <div class="row">
                     <div class="mb-3 col-md-6">
                         <label for="firstName" class="form-label">First Name</label>
