@@ -35,25 +35,25 @@ public class UserController {
         return "SignUpPage";
     }
 
-
     @PostMapping("register")
     public String register(@Valid @ModelAttribute("userDto") UserDto userDto , BindingResult result ,  Model model ){
-        System.out.println(userDto.toString());
+
         if (result.hasErrors()){
-            model.addAttribute("error","please fill the form correctly");
-         List<ObjectError> errors =   result.getAllErrors();
-         for (ObjectError error : errors){
-             System.out.println(error);
-         }
-            System.out.println("has errors in dto");
+            model.addAttribute("validationError","please fill the form correctly");
             return "SignUpPage";
         }
         String  serviceResult =  userService.validateAndSave(userDto);
-//        if (serviceResult.equals("false")){
-//
-//        }
+        if (serviceResult.equals("passwordError")){
+            model.addAttribute("passwordError","password doest match");
+            return "SignUpPage";
+        }
+        if (serviceResult.equals("dbError")){
+            model.addAttribute("dbError","invalid data...!");
+            return "SignUpPage";
+        }
 
         return "otp";
     }
+
 
 }

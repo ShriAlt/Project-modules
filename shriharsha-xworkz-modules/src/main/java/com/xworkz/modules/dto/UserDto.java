@@ -2,10 +2,12 @@ package com.xworkz.modules.dto;
 
 import lombok.Data;
 
+import javax.persistence.Column;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 @Data
 public class UserDto implements Serializable {
+
 
     @NotBlank(message = "First name is required")
     @Size(min = 3, max = 50, message = "First name must be between 3 and 50 characters")
@@ -13,6 +15,7 @@ public class UserDto implements Serializable {
 
     @NotBlank(message = "Last name is required")
     @Size(min = 3, max = 50, message = "Last name must be between 3 and 50 characters")
+
     private String lastName;
 
     @NotBlank(message = "Email is required")

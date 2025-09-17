@@ -4,9 +4,8 @@ import com.xworkz.modules.entity.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
+import javax.persistence.*;
+
 @Repository
 public class UserRepositoryImpl implements UserRepository{
 
@@ -14,22 +13,22 @@ public class UserRepositoryImpl implements UserRepository{
     private EntityManagerFactory entityManagerFactory;
 
     @Override
-    public void save(UserEntity userEntity) {
+    public boolean save(UserEntity userEntity) {
         EntityManager entityManager = null;
         EntityTransaction transaction = null;
-
         try {
             entityManager = entityManagerFactory.createEntityManager();
             transaction = entityManager.getTransaction();
             transaction.begin();
             entityManager.persist(userEntity);
             transaction.commit();
+            return true;
         } catch (Exception e) {
             if (transaction != null && transaction.isActive()) {
                 transaction.rollback();
             }
-            System.err.println("Error saving UserEntity: " + e.getMessage());
             e.printStackTrace();
+            return false;
         } finally {
             if (entityManager != null && entityManager.isOpen()) {
                 entityManager.close();
@@ -37,4 +36,53 @@ public class UserRepositoryImpl implements UserRepository{
         }
     }
 
+    @Override
+    public UserEntity findByMail(String mail) {
+        EntityManager entityManager= null;
+        EntityTransaction transaction= null;
+        try {
+            entityManager = entityManagerFactory.createEntityManager();
+            transaction = entityManager.getTransaction();
+
+            Query query = entityManager.createNamedQuery("findByEmail");
+            query.setParameter("email", mail);
+            return (UserEntity) query.getSingleResult();
+        }
+        catch ( Exception e){
+            if (transaction != null && transaction.isActive()){
+                transaction.rollback();
+            }
+            e.printStackTrace();
+            return null;
+        }
+        finally {
+            if (entityManager != null && entityManager.isOpen()) {
+                entityManager.close();
+            }
+        }
+    }
+
+    @Override
+    public UserEntity findByNumber(String number) {
+        EntityManager entityManager= null;
+        EntityTransaction transaction= null;
+        try {
+            entityManager = entityManagerFactory.createEntityManager();
+
+            Query query = entityManager.createNamedQuery("findByNumber");
+            query.setParameter("phoneNumber",number);
+//            System.out.println(number+"in repo");
+//            System.out.println( query.getSingleResult().toString());
+            return (UserEntity) query.getSingleResult();
+        }
+        catch (  NoResultException e){
+            e.printStackTrace();
+            return null;
+        }
+        finally {
+            if (entityManager != null && entityManager.isOpen()) {
+                entityManager.close();
+            }
+        }
+    }
 }
