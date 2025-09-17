@@ -6,5 +6,6 @@ public interface UserService {
  String validateAndSave(UserDto userDto);
   boolean isEmailExist(String email );
     boolean isNumberExist(String number );
+    String loginUser(String email , String inputPassword);
 
 }

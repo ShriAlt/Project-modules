@@ -40,9 +40,14 @@ public class UserController {
 
         if (result.hasErrors()){
             model.addAttribute("validationError","please fill the form correctly");
+            List<ObjectError> errors =result.getAllErrors();
+            for (ObjectError e : errors){
+                System.out.println(e);
+            }
             return "SignUpPage";
         }
         String  serviceResult =  userService.validateAndSave(userDto);
+
         if (serviceResult.equals("passwordError")){
             model.addAttribute("passwordError","password doest match");
             return "SignUpPage";
@@ -51,8 +56,30 @@ public class UserController {
             model.addAttribute("dbError","invalid data...!");
             return "SignUpPage";
         }
+        if (serviceResult.equals("emailExist")){
+            model.addAttribute("emailError","email already exist ");
+            return "SignUpPage";
+        }
+        return "SignInPage";
+    }
 
-        return "otp";
+    @PostMapping("login")
+    public String loginUser(String email , String  password , Model model){
+        String error = userService.loginUser(email,password);
+        if (error.equals("emailError")){
+            model.addAttribute("emailError","mail doesn't exist");
+            return "SignInPage";
+        }
+        if (error.equals("dbError")){
+            model.addAttribute("dbError","error with the  server  ");
+            return "SignInPage";
+        }
+        if (error.equals("passwordError")){
+            model.addAttribute("passwordError","password is not right ");
+            return "SignInPage";
+        }
+        model.addAttribute("success","Welcome! you just logged in ");
+        return "Home";
     }
 
 

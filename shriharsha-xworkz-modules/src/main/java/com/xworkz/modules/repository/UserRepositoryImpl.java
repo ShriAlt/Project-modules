@@ -1,5 +1,6 @@
 package com.xworkz.modules.repository;
 
+import com.xworkz.modules.entity.LoginEntity;
 import com.xworkz.modules.entity.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -39,19 +40,13 @@ public class UserRepositoryImpl implements UserRepository{
     @Override
     public UserEntity findByMail(String mail) {
         EntityManager entityManager= null;
-        EntityTransaction transaction= null;
         try {
             entityManager = entityManagerFactory.createEntityManager();
-            transaction = entityManager.getTransaction();
-
             Query query = entityManager.createNamedQuery("findByEmail");
             query.setParameter("email", mail);
             return (UserEntity) query.getSingleResult();
         }
-        catch ( Exception e){
-            if (transaction != null && transaction.isActive()){
-                transaction.rollback();
-            }
+        catch (  NoResultException e){
             e.printStackTrace();
             return null;
         }
@@ -80,6 +75,32 @@ public class UserRepositoryImpl implements UserRepository{
             return null;
         }
         finally {
+            if (entityManager != null && entityManager.isOpen()) {
+                entityManager.close();
+            }
+        }
+    }
+
+    @Override
+    public boolean saveLoginInfo(LoginEntity loginEntity) {
+        EntityManager entityManager = null;
+        EntityTransaction transaction = null;
+        try {
+            entityManager = entityManagerFactory.createEntityManager();
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+
+            entityManager.persist(loginEntity);
+
+            transaction.commit();
+            return true;
+        } catch (Exception e) {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+            return false;
+        } finally {
             if (entityManager != null && entityManager.isOpen()) {
                 entityManager.close();
             }

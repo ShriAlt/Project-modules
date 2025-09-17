@@ -49,9 +49,9 @@ function validateLastName() {
     submitBtn.disabled = true;
     return false;
   }
-  const existEmail = await axios("http://localhost:8080/shriharsha-xworkz-modules/checkEmail?"+email);// will return true if it exist
+  const existEmail = await axios("http://localhost:8080/shriharsha-xworkz-modules/checkEmail?email="+email);// will return true if it exist
 //  console.log(existEmail.data);
-  if(existEmail.data === true){
+  if(existEmail.data === "true"){
     errorSpan.innerHTML="email already exist , please use another email"
     submitBtn.disabled = true;
     return false;
@@ -71,7 +71,7 @@ function validateLastName() {
     submitBtn.disabled = true;
     return false;
   }
-  const existNumber = await axios("http://localhost:8080/shriharsha-xworkz-modules/checkNumber?"+number); // return true if exist
+  const existNumber = await axios("http://localhost:8080/shriharsha-xworkz-modules/checkNumber?phoneNumber=" + number); // return true if exist
 //  console.log(existNumber.data);
   if(existNumber.data === "true"){
     errorSpan.innerHTML="number already exist , please use another number"
@@ -106,43 +106,6 @@ function validateDOB() {
     return true;
   }
 }
-// function validateGender() {
-//   const genderInputs = document.getElementsByName("gender");
-//   const spanError = document.getElementById("genderError");
-//   let selected = false;
-//   // alert("yeahhhh")
-//   for (let input of genderInputs) {
-//     if (input.checked) {
-//       selected = true;
-//       break;
-//     }
-//   }
-//   if (!selected) {
-//     spanError.innerHTML = "Please select a gender before proceeding. Identity matters.";
-//     submitBtn.disabled = true;
-//     return false;
-//   }else{
-//     spanError.innerHTML = "";
-//     submitBtn.disabled = false;
-//     return true;
-//   }
-// }
-// function validateCountry() {
-//   const country = document.getElementById("country");
-//   const countryError = document.getElementById("countryError");
-
-//   if (country.value === "") {
-//     countryError.innerHTML = "Please select your country";
-//     submitBtn.disabled = true;
-//     return false;
-//   }
-//   else{
-//     countryError.innerHTML = "";
-//     submitBtn.disabled = false;
-//     return true;
-//   }
-// }
-
 function validateState() {
   const state = document.getElementById("state");
   const stateError = document.getElementById("stateError");
@@ -191,4 +154,41 @@ function validatePasswords() {
   submitBtn.disabled = false;
   return true;
 }
+
+// function validateGender() {
+//   const genderInputs = document.getElementsByName("gender");
+//   const spanError = document.getElementById("genderError");
+//   let selected = false;
+//   // alert("yeahhhh")
+//   for (let input of genderInputs) {
+//     if (input.checked) {
+//       selected = true;
+//       break;
+//     }
+//   }
+//   if (!selected) {
+//     spanError.innerHTML = "Please select a gender before proceeding. Identity matters.";
+//     submitBtn.disabled = true;
+//     return false;
+//   }else{
+//     spanError.innerHTML = "";
+//     submitBtn.disabled = false;
+//     return true;
+//   }
+// }
+// function validateCountry() {
+//   const country = document.getElementById("country");
+//   const countryError = document.getElementById("countryError");
+//
+//   if (country.value === "") {
+//     countryError.innerHTML = "Please select your country";
+//     submitBtn.disabled = true;
+//     return false;
+//   }
+//   else{
+//     countryError.innerHTML = "";
+//     submitBtn.disabled = false;
+//     return true;
+//   }
+// }
 

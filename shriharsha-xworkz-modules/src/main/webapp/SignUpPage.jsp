@@ -64,6 +64,7 @@
                 <span class="text-danger">${error}</span>
                 <span class="text-danger">${validationError}</span>
                 <span class="text-danger">${passwordError}</span>
+                <span class="text-danger">${emailError}</span>
                 <div class="row">
                     <div class="mb-3 col-md-6">
                         <label for="firstName" class="form-label">First Name</label>

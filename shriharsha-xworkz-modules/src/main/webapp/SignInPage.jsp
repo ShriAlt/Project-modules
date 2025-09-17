@@ -1,3 +1,4 @@
+<%@ page isELIgnored="false" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -38,14 +39,17 @@
         <i class="fas fa-user-circle me-2"></i> Login
     </div>
     <div class="card-body p-4">
-        <form action="/login" method="POST">
-
+        <form action="login" method="POST">
+            <span class="text-danger">${emailError}</span>
+            <span class="text-danger">${dbError}</span>
+            <span class="text-danger">${passwordError}</span>
             <div class="mb-3">
                 <label for="email" class="form-label">Email address</label>
                 <div class="input-group">
                     <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" required>
+                    <input type="email" class="form-control" id="email" name="email" onchange="validateEmail()" placeholder="name@example.com" required>
                 </div>
+                <span id="emailError" class="text-danger"></span>
             </div>
 
             <div class="mb-3">
@@ -64,7 +68,7 @@
                 <a href="#" class="small text-decoration-none">Forgot Password?</a>
             </div>
 
-            <button type="submit" class="btn btn-primary w-100">Login</button>
+            <button type="submit" class="btn btn-primary w-100" id="submitBtn" >Login</button>
         </form>
         <p class="text-center mt-3 mb-0">
             Don’t have an account? <a href="signUp" class="text-decoration-none">Register here</a>
@@ -72,6 +76,8 @@
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="SignInPageValidation.js"></script>
+
 </body>
 
 </html>

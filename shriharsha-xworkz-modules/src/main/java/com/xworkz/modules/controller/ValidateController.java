@@ -15,6 +15,7 @@ public class ValidateController {
 
     @RequestMapping("checkEmail")
     public ResponseEntity<String> checkEmail(String email){
+
         if (userService.isEmailExist(email)){
             return ResponseEntity.ok("true");
         }
