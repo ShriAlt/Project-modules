@@ -47,7 +47,7 @@
                 <label for="email" class="form-label">Email address</label>
                 <div class="input-group">
                     <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                    <input type="email" class="form-control" id="email" name="email" onchange="validateEmail()" placeholder="name@example.com" required>
+                    <input type="email" class="form-control" id="email" name="email" value="${email}" onchange="validateEmail()" placeholder="name@example.com" required>
                 </div>
                 <span id="emailError" class="text-danger"></span>
             </div>
@@ -56,7 +56,7 @@
                 <label for="password" class="form-label">Password</label>
                 <div class="input-group">
                     <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                    <input type="password" class="form-control" id="password" name="password" required>
+                    <input type="password" class="form-control" id="password"  name="password" required>
                 </div>
             </div>
 

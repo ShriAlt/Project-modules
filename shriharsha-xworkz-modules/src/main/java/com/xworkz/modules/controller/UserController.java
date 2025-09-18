@@ -67,14 +67,17 @@ public class UserController {
     public String loginUser(String email , String  password , Model model){
         String error = userService.loginUser(email,password);
         if (error.equals("emailError")){
+            model.addAttribute("email",email);
             model.addAttribute("emailError","mail doesn't exist");
             return "SignInPage";
         }
         if (error.equals("dbError")){
+            model.addAttribute("email",email);
             model.addAttribute("dbError","error with the  server  ");
             return "SignInPage";
         }
         if (error.equals("passwordError")){
+            model.addAttribute("email",email);
             model.addAttribute("passwordError","password is not right ");
             return "SignInPage";
         }
