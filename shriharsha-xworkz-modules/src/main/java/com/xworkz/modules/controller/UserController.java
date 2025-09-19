@@ -34,6 +34,8 @@ public class UserController {
     public String signUp(){
         return "SignUpPage";
     }
+    @GetMapping("forgotPassword")
+    public   String forgotPassword(){return "OtpPage";}
 
     @PostMapping("register")
     public String register(@Valid @ModelAttribute("userDto") UserDto userDto , BindingResult result ,  Model model ){
@@ -83,6 +85,21 @@ public class UserController {
         }
         model.addAttribute("success","Welcome! you just logged in ");
         return "Home";
+    }
+
+    @PostMapping("SendOtp")
+    public String sendOtp( String email , Model model){
+        String  result = userService.sendOtp(email);
+        if(result.equals("noEmailError")){
+            model.addAttribute("noEmailError","email doesn't exist");
+        }
+        model.addAttribute("email",email);
+        return "OtpPage";
+    }
+
+    @PostMapping("VerifyOtp")
+    public String verifyOtp(String otp , String email,Model model){
+        return "PasswordPage";
     }
 
 

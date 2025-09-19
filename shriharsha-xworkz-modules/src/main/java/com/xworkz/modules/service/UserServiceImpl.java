@@ -4,6 +4,7 @@ import com.xworkz.modules.dto.UserDto;
 import com.xworkz.modules.entity.LoginEntity;
 import com.xworkz.modules.entity.UserEntity;
 import com.xworkz.modules.repository.UserRepository;
+import com.xworkz.modules.util.OtpUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,9 @@ public class UserServiceImpl implements UserService{
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    OtpUtil otpUtil;
 
     @Override
     public String validateAndSave(UserDto userDto) {
@@ -44,7 +48,6 @@ public class UserServiceImpl implements UserService{
         return false;
     }
     private boolean checkMail(String email){
-//        System.out.println("in checkmail" + email);
         UserEntity user = userRepository.findByMail(email);
         if (!(user ==null) && email.equals(user.getEmail())){
             return true;
@@ -60,7 +63,6 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public boolean isEmailExist(String email) {
-        System.out.println("in service :" + email);
         if (checkMail(email)){
             return true;
         }
@@ -82,7 +84,6 @@ public class UserServiceImpl implements UserService{
             return "emailError";
         }
         if (inputPassword.equals(user.getPassword())) {
-
             LoginEntity loginEntity = new LoginEntity();
             loginEntity.setLoginTimestamp(LocalDateTime.now());
             loginEntity.setUserId(user.getId());
@@ -94,5 +95,14 @@ public class UserServiceImpl implements UserService{
             return "true";
         }
         return "passwordError";
+    }
+
+    @Override
+    public String sendOtp(String mail) {
+        if (!checkMail(mail)){
+            return "noEmailError";
+        }
+        System.out.println(otpUtil.genrateOtp());
+        return "noError";
     }
 }

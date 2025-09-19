@@ -7,5 +7,6 @@ public interface UserService {
   boolean isEmailExist(String email );
     boolean isNumberExist(String number );
     String loginUser(String email , String inputPassword);
+    String sendOtp(String mail);
 
 }
