@@ -11,5 +11,4 @@ public class OtpUtilImpl implements OtpUtil {
         Random  random = new Random();
         return String.valueOf(random.nextInt(99999));
     }
-
 }
