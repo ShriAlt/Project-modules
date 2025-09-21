@@ -7,6 +7,7 @@ import com.xworkz.modules.repository.UserRepository;
 import com.xworkz.modules.util.OtpUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -25,8 +26,12 @@ public class UserServiceImpl implements UserService{
         if (userDto != null){
             if (!checkMail(userDto.getEmail())){
                 if (validatePassword(userDto.getPassword(),userDto.getConfirmPassword())){
+
                     UserEntity userEntity=new UserEntity();
                     BeanUtils.copyProperties(userDto,userEntity);
+//                    System.out.println(userEntity.getPassword());
+                    userEntity.setPassword(encrypt(userDto.getPassword()));
+//                    System.out.println(userEntity.getPassword());
                     if ( !userRepository.save(userEntity)){
                         return "dbError";
                     }
@@ -60,6 +65,12 @@ public class UserServiceImpl implements UserService{
         }
         return false;
     }
+    private  String encrypt(String rawText){
+        return new BCryptPasswordEncoder().encode(rawText);
+    }
+    private boolean decrypt(String encryptPassword , String password){
+        return new BCryptPasswordEncoder().matches(password,encryptPassword);
+    }
 
     @Override
     public boolean isEmailExist(String email) {
@@ -83,7 +94,7 @@ public class UserServiceImpl implements UserService{
         if (user == null) {
             return "emailError";
         }
-        if (inputPassword.equals(user.getPassword())) {
+        if (decrypt(inputPassword,user.getPassword())) {
             LoginEntity loginEntity = new LoginEntity();
             loginEntity.setLoginTimestamp(LocalDateTime.now());
             loginEntity.setUserId(user.getId());

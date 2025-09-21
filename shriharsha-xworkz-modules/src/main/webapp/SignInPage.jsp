@@ -18,6 +18,7 @@
           align-items: center;
         }
 
+
         .login-card {
           width: 400px;
           max-width: 90%;
@@ -59,6 +60,7 @@
                     <input type="password" class="form-control" id="password"  name="password" required>
                 </div>
             </div>
+
 
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <!-- <div class="form-check">
