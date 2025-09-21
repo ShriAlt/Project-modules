@@ -1,4 +1,4 @@
-package com.xworkz.modules.controller;
+package com.xworkz.modules.reastcontroller;
 
 import com.xworkz.modules.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

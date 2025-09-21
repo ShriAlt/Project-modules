@@ -65,7 +65,7 @@
                   <input class="form-check-input" type="checkbox" id="rememberMe">
                   <label class="form-check-label" for="rememberMe"> Remember Me </label>
                 </div> -->
-                <a href="#" class="small text-decoration-none">Forgot Password?</a>
+                <a href="forgotPassword" class="small text-decoration-none">Forgot Password?</a>
             </div>
 
             <button type="submit" class="btn btn-primary w-100" id="submitBtn" >Login</button>

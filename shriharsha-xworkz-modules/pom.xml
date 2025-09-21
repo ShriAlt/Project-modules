@@ -14,85 +14,98 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+<!--      this is for db (JDBC)-->
       <dependency>
           <groupId>mysql</groupId>
           <artifactId>mysql-connector-java</artifactId>
           <version>8.0.33</version>
       </dependency>
+<!--      for hibernate validation-->
       <dependency>
           <groupId>org.hibernate.validator</groupId>
           <artifactId>hibernate-validator</artifactId>
           <version>6.2.3.Final</version>
       </dependency>
+<!--      // for servlets-->
       <dependency>
           <groupId>javax.servlet</groupId>
           <artifactId>servlet-api</artifactId>
           <version>2.5</version>
       </dependency>
+<!--      this is for sending mail-->
       <dependency>
           <groupId>com.sun.mail</groupId>
           <artifactId>javax.mail</artifactId>
           <version>1.6.2</version>
       </dependency>
-
+<!-- java persistence -->
       <dependency>
           <groupId>javax.persistence</groupId>
           <artifactId>javax.persistence-api</artifactId>
           <version>2.2</version>
       </dependency>
+<!--      encryption -->
       <dependency>
           <groupId>org.springframework.security</groupId>
           <artifactId>spring-security-crypto</artifactId>
           <version>5.7.10</version> <!-- use a stable version -->
       </dependency>
+<!--      lombook -->
       <dependency>
           <groupId>org.projectlombok</groupId>
           <artifactId>lombok</artifactId>
           <version>1.18.32</version>
       </dependency>
+<!--      hibernate core -->
       <dependency>
           <groupId>org.hibernate</groupId>
           <artifactId>hibernate-core</artifactId>
           <version>5.6.15.Final</version>
       </dependency>
+<!--      spring framework -->
       <dependency>
           <groupId>org.springframework</groupId>
           <artifactId>spring-webmvc</artifactId>
           <version>5.3.18</version>
       </dependency>
-      <dependency>
-          <groupId>javax.servlet</groupId>
-          <artifactId>jstl</artifactId>
-          <version>1.2</version>
-      </dependency>
 
-      <dependency>
-          <groupId>org.springframework.data</groupId>
-          <artifactId>spring-data-jpa</artifactId>
-          <version>2.7.0</version> <!-- Use a version compatible with your Spring setup -->
-      </dependency>
+<!--      <dependency>-->
+<!--          <groupId>javax.servlet</groupId>-->
+<!--          <artifactId>jstl</artifactId>-->
+<!--          <version>1.2</version>-->
+<!--      </dependency>-->
+
+<!--      <dependency>-->
+<!--          <groupId>org.springframework.data</groupId>-->
+<!--          <artifactId>spring-data-jpa</artifactId>-->
+<!--          <version>2.7.0</version> &lt;!&ndash; Use a version compatible with your Spring setup &ndash;&gt; this is for jpa side-->
+<!--      </dependency>-->
 
       <dependency>
           <groupId>org.springframework</groupId>
           <artifactId>spring-orm</artifactId>
           <version>5.3.18</version>
       </dependency>
+
       <dependency>
           <groupId>org.springframework</groupId>
           <artifactId>spring-context-support</artifactId>
           <version>5.3.33</version>
       </dependency>
+
       <dependency>
           <groupId>com.sun.activation</groupId>
           <artifactId>javax.activation</artifactId>
           <version>1.2.0</version>
       </dependency>
+
       <dependency>
           <groupId>org.jetbrains</groupId>
           <artifactId>annotations</artifactId>
           <version>RELEASE</version>
           <scope>compile</scope>
       </dependency>
+
   </dependencies>
   <build>
     <finalName>shriharsha-xworkz-modules</finalName>
