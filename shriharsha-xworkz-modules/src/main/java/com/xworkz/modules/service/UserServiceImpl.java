@@ -87,7 +87,6 @@ public class UserServiceImpl implements UserService{
         }
         return false;
     }
-
     @Override
     public String loginUser(String email, String inputPassword) {
         UserEntity user = userRepository.findByMail(email);
