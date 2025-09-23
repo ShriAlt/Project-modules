@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService{
 
                     UserEntity userEntity=new UserEntity();
                     BeanUtils.copyProperties(userDto,userEntity);
-                    userEntity.setPassword(encrypt(userDto.getPassword()));
+                    userEntity.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
                     if ( !userRepository.save(userEntity)){
                         return "dbError";
                     }
@@ -70,12 +70,12 @@ public class UserServiceImpl implements UserService{
         }
         return false;
     }
-    private  String encrypt(String rawText){
-        return bCryptPasswordEncoder.encode(rawText);
-    }
-    private boolean decrypt(String encryptPassword , String password){
-        return bCryptPasswordEncoder.matches(password,encryptPassword);
-    }
+//    private  String encrypt(String rawText){
+//        return bCryptPasswordEncoder.encode(rawText);
+//    }
+//    private boolean decrypt(String encryptPassword , String password){
+//        return bCryptPasswordEncoder.matches(password,encryptPassword);
+//    }
 
     @Override
     public boolean isEmailExist(String email) {
@@ -98,7 +98,7 @@ public class UserServiceImpl implements UserService{
         if (user == null) {
             return "emailError";
         }
-        if (decrypt(inputPassword,user.getPassword())) {
+        if (bCryptPasswordEncoder.matches(inputPassword,user.getPassword())) {
             LoginEntity loginEntity = new LoginEntity();
             loginEntity.setLoginTimestamp(LocalDateTime.now());
             loginEntity.setUserId(user.getId());
