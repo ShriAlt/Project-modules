@@ -58,4 +58,7 @@ public class UserEntity {
 
     @Column(name = "pin_code")
     private String pinCode;
+
+    @Column(name = "otp")
+    private String otp;
 }

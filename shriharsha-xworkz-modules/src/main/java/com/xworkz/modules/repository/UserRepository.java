@@ -8,4 +8,5 @@ public interface UserRepository {
     UserEntity findByMail(String mail);
     UserEntity findByNumber(String number);
     boolean saveLoginInfo(LoginEntity loginEntity);
+    boolean updateUser(UserEntity entity);
 }

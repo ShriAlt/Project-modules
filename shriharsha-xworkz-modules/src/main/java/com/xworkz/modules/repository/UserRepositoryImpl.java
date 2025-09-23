@@ -66,8 +66,6 @@ public class UserRepositoryImpl implements UserRepository{
 
             Query query = entityManager.createNamedQuery("findByNumber");
             query.setParameter("phoneNumber",number);
-//            System.out.println(number+"in repo");
-//            System.out.println( query.getSingleResult().toString());
             return (UserEntity) query.getSingleResult();
         }
         catch (  NoResultException e){
@@ -92,6 +90,30 @@ public class UserRepositoryImpl implements UserRepository{
 
             entityManager.persist(loginEntity);
 
+            transaction.commit();
+            return true;
+        } catch (Exception e) {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+            return false;
+        } finally {
+            if (entityManager != null && entityManager.isOpen()) {
+                entityManager.close();
+            }
+        }
+    }
+
+    @Override
+    public boolean updateUser(UserEntity entity) {
+        EntityManager entityManager = null;
+        EntityTransaction transaction = null;
+        try {
+            entityManager = entityManagerFactory.createEntityManager();
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            entityManager.merge(entity);
             transaction.commit();
             return true;
         } catch (Exception e) {

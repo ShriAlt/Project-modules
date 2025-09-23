@@ -89,9 +89,13 @@ public class UserController {
 
     @PostMapping("SendOtp")
     public String sendOtp( String email , Model model){
+
         String  result = userService.sendOtp(email);
         if(result.equals("noEmailError")){
             model.addAttribute("noEmailError","email doesn't exist");
+        }
+        if(result.equals("dbError")){
+            model.addAttribute("dbError","server error");
         }
         model.addAttribute("email",email);
         return "OtpPage";
@@ -99,6 +103,10 @@ public class UserController {
 
     @PostMapping("VerifyOtp")
     public String verifyOtp(String otp , String email,Model model){
+        String result = userService.verifyOtp(email,otp);
+        if(result.equals("noMailError")){
+            
+        }
         return "PasswordPage";
     }
 

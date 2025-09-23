@@ -4,6 +4,7 @@ import com.xworkz.modules.dto.UserDto;
 import com.xworkz.modules.entity.LoginEntity;
 import com.xworkz.modules.entity.UserEntity;
 import com.xworkz.modules.repository.UserRepository;
+import com.xworkz.modules.util.EmailService;
 import com.xworkz.modules.util.OtpUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +17,16 @@ import java.time.LocalDateTime;
 public class UserServiceImpl implements UserService{
 
     @Autowired
-    UserRepository userRepository;
+  private   UserRepository userRepository;
 
     @Autowired
-    OtpUtil otpUtil;
+  private   OtpUtil otpUtil;
+
+    @Autowired
+   private EmailService emailService;
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     public String validateAndSave(UserDto userDto) {
@@ -29,9 +36,7 @@ public class UserServiceImpl implements UserService{
 
                     UserEntity userEntity=new UserEntity();
                     BeanUtils.copyProperties(userDto,userEntity);
-//                    System.out.println(userEntity.getPassword());
                     userEntity.setPassword(encrypt(userDto.getPassword()));
-//                    System.out.println(userEntity.getPassword());
                     if ( !userRepository.save(userEntity)){
                         return "dbError";
                     }
@@ -66,10 +71,10 @@ public class UserServiceImpl implements UserService{
         return false;
     }
     private  String encrypt(String rawText){
-        return new BCryptPasswordEncoder().encode(rawText);
+        return bCryptPasswordEncoder.encode(rawText);
     }
     private boolean decrypt(String encryptPassword , String password){
-        return new BCryptPasswordEncoder().matches(password,encryptPassword);
+        return bCryptPasswordEncoder.matches(password,encryptPassword);
     }
 
     @Override
@@ -109,10 +114,30 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public String sendOtp(String mail) {
-        if (!checkMail(mail)){
+
+        if ( mail==null || !checkMail(mail)){
             return "noEmailError";
         }
-        System.out.println(otpUtil.genrateOtp());
+        String otp = otpUtil.genrateOtp();
+        emailService.sendOtp(mail, otp);
+        UserEntity user = userRepository.findByMail(mail);
+        user.setOtp(bCryptPasswordEncoder.encode(otp));
+       boolean result =  userRepository.updateUser(user);
+       if (!result){
+           return "dbError";
+       }
+        return "noError";
+    }
+
+    @Override
+    public String verifyOtp(String email ,String inputOtp) {
+        if (email == null || inputOtp==null ){
+            return "noEmailError";
+        }
+        UserEntity user = userRepository.findByMail(email);
+        if (!bCryptPasswordEncoder.matches(inputOtp,user.getOtp())){
+            return "misMatchError";
+        }
         return "noError";
     }
 }

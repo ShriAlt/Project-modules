@@ -8,5 +8,6 @@ public interface UserService {
     boolean isNumberExist(String number );
     String loginUser(String email , String inputPassword);
     String sendOtp(String mail);
+    String verifyOtp(String email,String inputOtp);
 
 }
