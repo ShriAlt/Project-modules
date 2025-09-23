@@ -140,4 +140,18 @@ public class UserServiceImpl implements UserService{
         }
         return "noError";
     }
+
+    @Override
+    public String resetPassword(String email, String password, String confirmPassword) {
+       UserEntity user = userRepository.findByMail(email);
+        if (user==null){
+            return "noMailError";
+        }
+        if (!password.equals(confirmPassword)){
+            return "passwordError";
+        }
+        user.setPassword(bCryptPasswordEncoder.encode(password));
+        userRepository.updateUser(user);
+        return "noError";
+    }
 }

@@ -105,9 +105,25 @@ public class UserController {
     public String verifyOtp(String otp , String email,Model model){
         String result = userService.verifyOtp(email,otp);
         if(result.equals("noMailError")){
-            
+            model.addAttribute("noMailError","no mail");
+            return "PasswordPage";        }
+        if (result.equals("misMatchError")){
+            model.addAttribute("misMatchError","otp is invalid");
+            return "PasswordPage";
         }
-        return "PasswordPage";
+        return "resetPasswordPage";
+    }
+    @PostMapping("ResetPassword")
+    public String resetPassword(String password , String confirmPassword, String email , Model model){
+        String  result = userService.resetPassword(email,password, confirmPassword);
+        if(result.equals("noMailError")){
+            model.addAttribute("noMailError","no mail");
+            return "resetPasswordPage";        }
+        if (result.equals("passwordError")){
+            model.addAttribute("misMatchError","password doesn't match");
+            return "resetPasswordPage";
+        }
+        return  "Home";
     }
 
 

@@ -9,5 +9,6 @@ public interface UserService {
     String loginUser(String email , String inputPassword);
     String sendOtp(String mail);
     String verifyOtp(String email,String inputOtp);
+    String resetPassword(String email,String password , String confirmPassword);
 
 }
