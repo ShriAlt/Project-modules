@@ -1,5 +1,4 @@
 <%@ page isELIgnored="false" %>
-<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -50,15 +49,18 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-<!--        <ul class="navbar-nav ms-auto">-->
-<!--            <li class="nav-item">-->
-<!--                <a href="signIn" class="btn btn-outline-primary nav-link">-->
-<!--                    <i class="fa fa-user"></i> Login-->
-<!--                </a>-->
-<!--            </li>-->
-<!--        </ul>-->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto"> <!-- Aligns items to the right -->
+                <li class="nav-item">
+                    <a class="nav-link" href="viewProfile">
+                        <i class="fas fa-user"></i> Profile
+                    </a>
+                </li>
+            </ul>
+        </div>
     </div>
 </nav>
+
 
 <!-- Content Area -->
 <div class="content">

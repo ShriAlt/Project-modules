@@ -32,14 +32,13 @@
         <div class="card-body">
             <form id="resetPasswordForm" action="ResetPassword" method="post">
                 <div class="mb-3">
+                    <input type="text" name="email" value="${email}" hidden>
                     <label for="newPassword" class="form-label">New Password</label>
                     <input type="password" class="form-control" id="newPassword" name="newPassword" required>
-                    <div class="invalid-feedback">Please enter your new password.</div>
                 </div>
                 <div class="mb-3">
                     <label for="confirmPassword" class="form-label">Confirm New Password</label>
                     <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
-                    <div class="invalid-feedback">Passwords do not match.</div>
                 </div>
                 <button type="submit" class="btn btn-primary w-100">Reset Password</button>
             </form>
@@ -48,19 +47,6 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<!--<script>-->
-<!--    // Client-side validation-->
-<!--    document.getElementById("resetPasswordForm").addEventListener("submit", function(event) {-->
-<!--        const newPassword = document.getElementById("newPassword").value;-->
-<!--        const confirmPassword = document.getElementById("confirmPassword").value;-->
 
-<!--        if (newPassword !== confirmPassword) {-->
-<!--            event.preventDefault(); // Prevent form submission-->
-<!--            document.querySelector(".invalid-feedback").style.display = "block";-->
-<!--        } else {-->
-<!--            document.querySelector(".invalid-feedback").style.display = "none";-->
-<!--        }-->
-<!--    });-->
-<!--</script>-->
 </body>
 </html>

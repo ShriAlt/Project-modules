@@ -76,7 +76,7 @@
                             <div class="mb-3">
                                 <input type="text" name="email" value="${email}" hidden>
                                 <label for="otp" class="form-label">Enter OTP</label>
-                                <input type="text" class="form-control" id="otp" name="otp" required pattern="\d{6}" title="Please enter a 6-digit OTP">
+                                <input type="text" class="form-control" id="otp" name="otp" required pattern="\d{5}" title="Please enter a 6-digit OTP">
                             </div>
                             <button type="submit" class="btn btn-primary w-100">Verify OTP</button>
                         </form>

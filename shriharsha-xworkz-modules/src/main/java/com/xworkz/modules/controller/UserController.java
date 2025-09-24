@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -66,7 +67,7 @@ public class UserController {
     }
 
     @PostMapping("login")
-    public String loginUser(String email , String  password , Model model){
+    public String loginUser(String email , String  password , HttpSession httpSession, Model model){
         String error = userService.loginUser(email,password);
         if (error.equals("emailError")){
             model.addAttribute("email",email);
@@ -84,6 +85,8 @@ public class UserController {
             return "SignInPage";
         }
         model.addAttribute("success","Welcome! you just logged in ");
+        model.addAttribute("email",email);
+        httpSession.setAttribute("email",email);
         return "Home";
     }
 
@@ -111,11 +114,15 @@ public class UserController {
             model.addAttribute("misMatchError","otp is invalid");
             return "PasswordPage";
         }
+        model.addAttribute("email",email);
         return "resetPasswordPage";
     }
     @PostMapping("ResetPassword")
-    public String resetPassword(String password , String confirmPassword, String email , Model model){
-        String  result = userService.resetPassword(email,password, confirmPassword);
+    public String resetPassword(String newPassword , String confirmPassword, String email , Model model){
+        System.out.println(email);
+        System.out.println(confirmPassword);
+        System.out.println(newPassword);
+        String  result = userService.resetPassword(email,newPassword, confirmPassword);
         if(result.equals("noMailError")){
             model.addAttribute("noMailError","no mail");
             return "resetPasswordPage";        }
@@ -123,7 +130,13 @@ public class UserController {
             model.addAttribute("misMatchError","password doesn't match");
             return "resetPasswordPage";
         }
-        return  "Home";
+        return  "SignInPage";
+    }
+    @GetMapping("viewProfile")
+    public String viewProfile( HttpSession httpSession){
+      String email =  httpSession.getAttribute("email").toString();
+        System.out.println(email);
+        return "ProfilePage";
     }
 
 
