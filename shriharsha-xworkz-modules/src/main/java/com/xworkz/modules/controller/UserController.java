@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.mail.Multipart;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
@@ -133,9 +135,17 @@ public class UserController {
         return  "SignInPage";
     }
     @GetMapping("viewProfile")
-    public String viewProfile( HttpSession httpSession){
+    public String viewProfile( HttpSession httpSession, Model model){
       String email =  httpSession.getAttribute("email").toString();
-        System.out.println(email);
+     UserDto userDto = userService.displayUser(email);
+     model.addAttribute("dto",userDto);
+        return "ProfilePage";
+    }
+
+    @PostMapping("UpdateProfile")
+    public String updateProfile(UserDto dto, Model model){
+        System.out.println(dto.toString());
+        userService.validateAndUpdate(dto);
         return "ProfilePage";
     }
 

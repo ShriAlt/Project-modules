@@ -1,13 +1,16 @@
 package com.xworkz.modules.dto;
 
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.mail.Multipart;
 import javax.persistence.Column;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 @Data
 public class UserDto implements Serializable {
 
+    private int id;
 
     @NotBlank(message = "First name is required")
     @Size(min = 3, max = 50, message = "First name must be between 3 and 50 characters")
@@ -56,6 +59,7 @@ public class UserDto implements Serializable {
     @Pattern(regexp = "\\d{6}", message = "Pin code must be exactly 6 digits")
     private String pinCode;
 
+    private MultipartFile fileUpload;
 
 
 

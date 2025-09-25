@@ -10,5 +10,7 @@ public interface UserService {
     String sendOtp(String mail);
     String verifyOtp(String email,String inputOtp);
     String resetPassword(String email,String password , String confirmPassword);
+    UserDto displayUser(String email);
+    String  validateAndUpdate(UserDto dto);
 
 }

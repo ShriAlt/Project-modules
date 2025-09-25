@@ -10,12 +10,18 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 
 @Service
 public class UserServiceImpl implements UserService{
 
+    private static final String upload = "";
     @Autowired
   private   UserRepository userRepository;
 
@@ -153,5 +159,40 @@ public class UserServiceImpl implements UserService{
         user.setPassword(bCryptPasswordEncoder.encode(password));
         userRepository.updateUser(user);
         return "noError";
+    }
+
+    @Override
+    public UserDto displayUser(String email) {
+        UserEntity user = userRepository.findByMail(email);
+        UserDto userDto = new UserDto();
+        BeanUtils.copyProperties(user,userDto);
+        return userDto;
+    }
+
+    @Override
+    public String validateAndUpdate(UserDto dto) {
+
+        if (dto.getFileUpload()!=null ){
+            MultipartFile fileUpload = dto.getFileUpload();
+            try {
+
+                // Get the file and save it somewhere
+                byte[] bytes = fileUpload.getBytes();
+                Path path = Paths.get(upload + fileUpload.getOriginalFilename());
+                Files.write(path, bytes);
+                fileUpload.getOriginalFilename();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        if (dto==null){
+            return "noDtoError";
+        }
+        UserEntity  entity = new UserEntity();
+        BeanUtils.copyProperties(dto,entity);
+        System.out.println(entity);
+//        userRepository.updateUser(entity);
+        return "noErrors";
     }
 }
