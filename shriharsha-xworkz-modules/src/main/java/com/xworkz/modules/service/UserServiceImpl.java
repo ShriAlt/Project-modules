@@ -148,7 +148,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public String resetPassword(String email, String password, String confirmPassword) {
+    public String   resetPassword(String email, String password, String confirmPassword) {
        UserEntity user = userRepository.findByMail(email);
         if (user==null){
             return "noMailError";

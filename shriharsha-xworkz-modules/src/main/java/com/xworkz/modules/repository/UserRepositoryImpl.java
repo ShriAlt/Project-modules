@@ -106,7 +106,7 @@ public class UserRepositoryImpl implements UserRepository{
     }
 
     @Override
-    public boolean updateUser(UserEntity entity) {
+    public boolean  updateUser(UserEntity entity) {
         EntityManager entityManager = null;
         EntityTransaction transaction = null;
         try {
