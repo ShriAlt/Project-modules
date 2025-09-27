@@ -32,6 +32,7 @@
         <div class="card-body">
             <form id="resetPasswordForm" action="ResetPassword" method="post">
                 <div class="mb-3">
+
                     <input type="text" name="email" value="${email}" hidden>
                     <label for="newPassword" class="form-label">New Password</label>
                     <input type="password" class="form-control" id="newPassword" name="newPassword" required>
