@@ -8,14 +8,12 @@
         body {
             background-color: #f8f9fa;
         }
-
         .reset-password-container {
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
         }
-
         .reset-password-card {
             width: 400px;
             max-width: 90%;
@@ -47,6 +45,5 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
 </body>
 </html>

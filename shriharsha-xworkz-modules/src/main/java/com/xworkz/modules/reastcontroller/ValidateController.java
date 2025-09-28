@@ -24,8 +24,6 @@ public class ValidateController {
 
     @RequestMapping("checkNumber")
     public ResponseEntity<String> checkNumber(String phoneNumber){
-//        System.out.println(phoneNumber);
-        System.out.println(userService.isNumberExist(phoneNumber));
         if (userService.isNumberExist(phoneNumber)){
             return ResponseEntity.ok("true");
         }

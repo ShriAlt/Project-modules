@@ -8,8 +8,6 @@ import java.io.File;
 
 public class WebInit extends AbstractAnnotationConfigDispatcherServletInitializer {
 
-    private int maxUploadSizeInMb = 5 * 1024 * 1024; // 5 MB
-
     public WebInit(){
         System.out.println("no args const of WebInit...");
     }
@@ -33,9 +31,11 @@ public class WebInit extends AbstractAnnotationConfigDispatcherServletInitialize
     protected void customizeRegistration(ServletRegistration.Dynamic registration) {
 
         // upload temp file will put here
-        File uploadDirectory = new File(System.getProperty("java.io.tmpdir")); // tomporary location
+        File uploadDirectory = new File(System.getProperty("java.io.tmpdir")); // temporary location
 
         // register a MultipartConfigElement
+        // 5 MB
+        int maxUploadSizeInMb = 5 * 1024 * 1024;
         MultipartConfigElement multipartConfigElement =
                 new MultipartConfigElement(uploadDirectory.getAbsolutePath(),
                         maxUploadSizeInMb, maxUploadSizeInMb * 2, maxUploadSizeInMb / 2);

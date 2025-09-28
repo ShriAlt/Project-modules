@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 @Service
 public class UserServiceImpl implements UserService{
 
-    private static final String upload = "";
+    private static final String UPLOAD_FILE = "C:/Users/shrih/OneDrive/Pictures/Documents/Project-modules/shriharsha-xworkz-modules/src/main/resources/userImges";
     @Autowired
   private   UserRepository userRepository;
 
@@ -171,28 +171,35 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public String validateAndUpdate(UserDto dto) {
-
-        if (dto.getFileUpload()!=null ){
-            MultipartFile fileUpload = dto.getFileUpload();
-            try {
-
-                // Get the file and save it somewhere
-                byte[] bytes = fileUpload.getBytes();
-                Path path = Paths.get(upload + fileUpload.getOriginalFilename());
-                Files.write(path, bytes);
-                fileUpload.getOriginalFilename();
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
         if (dto==null){
             return "noDtoError";
         }
+        if (dto.getUserImage()==null ){
+            return "noFileError";
+        }
+        if (!saveImage(dto)){
+            return "fileNotSaved";
+        }
         UserEntity  entity = new UserEntity();
-        BeanUtils.copyProperties(dto,entity);
-        System.out.println(entity);
-//        userRepository.updateUser(entity);
+        BeanUtils.copyProperties(dto,entity);entity.setUserImageName(dto.getUserImage().getOriginalFilename());
+        System.err.println(entity);
+        userRepository.updateUser(entity);
         return "noErrors";
+    }
+
+    private static boolean saveImage(UserDto dto) {
+        MultipartFile fileUpload = dto.getUserImage();
+        System.err
+                .println(fileUpload.getOriginalFilename());
+        try {
+            byte[] bytes = fileUpload.getBytes();
+            Path path = Paths.get(UPLOAD_FILE + fileUpload.getOriginalFilename());
+            Files.write(path, bytes);
+            fileUpload.getOriginalFilename();
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

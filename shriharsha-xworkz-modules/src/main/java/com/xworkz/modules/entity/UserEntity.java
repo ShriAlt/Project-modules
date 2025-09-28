@@ -61,4 +61,7 @@ public class UserEntity {
 
     @Column(name = "otp")
     private String otp;
+
+    @Column(name ="userImageName")
+    private String userImageName;
 }

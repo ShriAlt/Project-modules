@@ -11,9 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.multipart.MultipartFile;
 
-import javax.mail.Multipart;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
@@ -144,9 +142,16 @@ public class UserController {
 
     @PostMapping("UpdateProfile")
     public String updateProfile(UserDto dto, Model model){
-        System.out.println(dto.toString());
-        userService.validateAndUpdate(dto);
+        String s = userService.validateAndUpdate(dto);
+        System.err.println(s);
+        UserDto userDto = userService.displayUser(dto.getEmail());
+        model.addAttribute("dto",userDto);
         return "ProfilePage";
+    }
+    @PostMapping("UpdateProfilePage")
+    public String updateProfile(HttpSession session , UserDto dto,Model model){
+        model.addAttribute("dto",dto);
+        return "UpdateProfile";
     }
 
 

@@ -59,7 +59,7 @@ public class UserDto implements Serializable {
     @Pattern(regexp = "\\d{6}", message = "Pin code must be exactly 6 digits")
     private String pinCode;
 
-    private MultipartFile fileUpload;
+    private MultipartFile userImage;
 
 
 

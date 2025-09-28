@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Website - View Profile</title>
+    <title>My Website</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -49,18 +49,20 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="viewProfile">
-                        <i class="fas fa-user"></i> Profile
-                    </a>
-                </li>
-            </ul>
-        </div>
+<!--        <div class="collapse navbar-collapse" id="navbarNav">-->
+<!--            <ul class="navbar-nav ms-auto">-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" href="viewProfile">-->
+<!--                        <i class="fas fa-user"></i> Profile-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--        </div>-->
     </div>
 </nav>
 
+
+<!-- Content Area -->
 <!-- Content Area -->
 <div class="content">
     <div class="container">
@@ -72,58 +74,60 @@
                 User Profile
             </div>
             <div class="card-body">
-                <dl class="row">
-                    <dt class="col-sm-3">First Name</dt>
-                    <dd class="col-sm-9">${dto.firstName}</dd>
+                <form id="updateProfileForm" action="UpdateProfile" method="post" enctype="multipart/form-data">
 
-                    <dt class="col-sm-3">Last Name</dt>
-                    <dd class="col-sm-9">${dto.lastName}</dd>
-
-                    <dt class="col-sm-3">Email</dt>
-                    <dd class="col-sm-9">${dto.email}</dd>
-
-                    <dt class="col-sm-3">Phone Number</dt>
-                    <dd class="col-sm-9">${dto.phoneNumber}</dd>
-
-                    <dt class="col-sm-3">Gender</dt>
-                    <dd class="col-sm-9">${dto.gender}</dd>
-
-                    <dt class="col-sm-3">Country</dt>
-                    <dd class="col-sm-9">${dto.country}</dd>
-
-                    <dt class="col-sm-3">State</dt>
-                    <dd class="col-sm-9">${dto.state}</dd>
-
-                    <dt class="col-sm-3">City</dt>
-                    <dd class="col-sm-9">${dto.city}</dd>
-
-                    <dt class="col-sm-3">Date of Birth</dt>
-                    <dd class="col-sm-9">${dto.dob}</dd>
-
-                    <dt class="col-sm-3">Pin Code</dt>
-                    <dd class="col-sm-9">${dto.pinCode}</dd>
-                </dl>
-                <form id="updateProfileForm" action="UpdateProfilePage" method="post" enctype="multipart/form-data">
                     <input type="text" class="form-control" id="id" name="id" value="${dto.id}" hidden>
                     <input type="text" class="form-control" id="password" name="password" value="${dto.password}" hidden>
-                    <input type="text" class="form-control" id="firstName" name="firstName" value="${dto.firstName}"hidden>
-                    <input type="text" class="form-control" id="lastName" name="lastName" value="${dto.lastName}"  hidden>
-                    <input type="text" class="form-control" id="email" name="email" value="${dto.email}"hidden>
-                    <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" value="${dto.phoneNumber}"  hidden>
-                    <input type="text" class="form-control" id="gender" name="gender" value="${dto.gender}" hidden>
-                    <input type="text" class="form-control" id="country" name="country" value="${dto.country}" hidden>
-                    <input type="text" class="form-control" id="state" name="state" value="${dto.state}" hidden>
-                    <input type="text" class="form-control" id="city" name="city" value="${dto.city}"  hidden>
                     <input type="text" class="form-control" id="confirmPassword" name="confirmPassword" value="${dto.password}" hidden>
-                    <input type="date" class="form-control" id="dob" name="dob" value="${dto.dob}" hidden>
-                    <input type="text" class="form-control" id="pinCode" name="pinCode" value="${dto.pinCode}" hidden>
-                    <input type="file" name="userImage" id="userImage" class="form-control mb-3" accept="image/*" value="${fileName}" hidden/>
+                    <div class="mb-3">
+                        <label for="firstName" class="form-label">First Name</label>
+                        <input type="text" class="form-control" id="firstName" name="firstName" value="${dto.firstName}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="lastName" class="form-label">Last Name</label>
+                        <input type="text" class="form-control" id="lastName" name="lastName" value="${dto.lastName}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" value="${dto.email}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="phoneNumber" class="form-label">Phone Number</label>
+                        <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" value="${dto.phoneNumber}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="gender" class="form-label">Gender</label>
+                        <input type="text" class="form-control" id="gender" name="gender" value="${dto.gender}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="country" class="form-label">Country</label>
+                        <input type="text" class="form-control" id="country" name="country" value="${dto.country}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="state" class="form-label">State</label>
+                        <input type="text" class="form-control" id="state" name="state" value="${dto.state}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="city" class="form-label">City</label>
+                        <input type="text" class="form-control" id="city" name="city" value="${dto.city}" required>
+                    </div>
+                    <div class="mb-3">
+
+                        <label for="dob" class="form-label">dob</label>
+                        <input type="date" class="form-control" id="dob" name="dob" value="${dto.dob}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="pinCode" class="form-label">Pin Code</label>
+                        <input type="text" class="form-control" id="pinCode" name="pinCode" value="${dto.pinCode}" required>
+                    </div>
+                    <input type="file" name="userImage" id="userImage" class="form-control mb-3" accept="image/*" />
                     <button type="submit" class="btn btn-primary">Update Profile</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
 
 <!-- Footer -->
 <footer class="py-3 my-4">
