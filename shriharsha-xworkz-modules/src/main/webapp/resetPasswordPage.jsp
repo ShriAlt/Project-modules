@@ -23,7 +23,6 @@
     </style>
 </head>
 <body>
-
 <div class="reset-password-container">
     <div class="card reset-password-card">
         <div class="card-header text-center">
