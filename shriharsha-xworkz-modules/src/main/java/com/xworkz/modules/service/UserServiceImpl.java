@@ -19,36 +19,35 @@ import java.nio.file.Paths;
 import java.time.LocalDateTime;
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     private static final String UPLOAD_FILE = "C:/Users/shrih/OneDrive/Pictures/Documents/Project-modules/shriharsha-xworkz-modules/src/main/resources/userImges";
     @Autowired
-  private   UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Autowired
-  private   OtpUtil otpUtil;
+    private OtpUtil otpUtil;
 
     @Autowired
-   private EmailService emailService;
+    private EmailService emailService;
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     public String validateAndSave(UserDto userDto) {
-        if (userDto != null){
-            if (!checkMail(userDto.getEmail())){
-                if (validatePassword(userDto.getPassword(),userDto.getConfirmPassword())){
+        if (userDto != null) {
+            if (!checkMail(userDto.getEmail())) {
+                if (validatePassword(userDto.getPassword(), userDto.getConfirmPassword())) {
 
-                    UserEntity userEntity=new UserEntity();
-                    BeanUtils.copyProperties(userDto,userEntity);
+                    UserEntity userEntity = new UserEntity();
+                    BeanUtils.copyProperties(userDto, userEntity);
                     userEntity.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
-                    if ( !userRepository.save(userEntity)){
+                    if (!userRepository.save(userEntity)) {
                         return "dbError";
                     }
                     return "true";
-                }
-                else {
+                } else {
                     return "passwordError";
                 }
             }
@@ -57,21 +56,23 @@ public class UserServiceImpl implements UserService{
         return "emptyDto";
     }
 
-  private  boolean validatePassword(String password , String confirmPassword){
-        if (password.equals(confirmPassword)){
+    private boolean validatePassword(String password, String confirmPassword) {
+        if (password.equals(confirmPassword)) {
             return true;
         }
         return false;
     }
-    private boolean checkMail(String email){
+
+    private boolean checkMail(String email) {
         UserEntity user = userRepository.findByMail(email);
-        if (!(user ==null) && email.equals(user.getEmail())){
+        if (!(user == null) && email.equals(user.getEmail())) {
             return true;
         }
         return false;
     }
-    private boolean checkPhoneNumber(String phone){
-        if (phone.equals(userRepository.findByNumber(phone).getPhoneNumber())){
+
+    private boolean checkPhoneNumber(String phone) {
+        if (phone.equals(userRepository.findByNumber(phone).getPhoneNumber())) {
             return true;
         }
         return false;
@@ -85,7 +86,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public boolean isEmailExist(String email) {
-        if (checkMail(email)){
+        if (checkMail(email)) {
             return true;
         }
         return false;
@@ -93,18 +94,19 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public boolean isNumberExist(String number) {
-        if (checkPhoneNumber(number)){
+        if (checkPhoneNumber(number)) {
             return true;
         }
         return false;
     }
+
     @Override
     public String loginUser(String email, String inputPassword) {
         UserEntity user = userRepository.findByMail(email);
         if (user == null) {
             return "emailError";
         }
-        if (bCryptPasswordEncoder.matches(inputPassword,user.getPassword())) {
+        if (bCryptPasswordEncoder.matches(inputPassword, user.getPassword())) {
             LoginEntity loginEntity = new LoginEntity();
             loginEntity.setLoginTimestamp(LocalDateTime.now());
             loginEntity.setUserId(user.getId());
@@ -121,39 +123,39 @@ public class UserServiceImpl implements UserService{
     @Override
     public String sendOtp(String mail) {
 
-        if ( mail==null || !checkMail(mail)){
+        if (mail == null || !checkMail(mail)) {
             return "noEmailError";
         }
         String otp = otpUtil.genrateOtp();
         emailService.sendOtp(mail, otp);
         UserEntity user = userRepository.findByMail(mail);
         user.setOtp(bCryptPasswordEncoder.encode(otp));
-       boolean result =  userRepository.updateUser(user);
-       if (!result){
-           return "dbError";
-       }
+        boolean result = userRepository.updateUser(user);
+        if (!result) {
+            return "dbError";
+        }
         return "noError";
     }
 
     @Override
-    public String verifyOtp(String email ,String inputOtp) {
-        if (email == null || inputOtp==null ){
+    public String verifyOtp(String email, String inputOtp) {
+        if (email == null || inputOtp == null) {
             return "noEmailError";
         }
         UserEntity user = userRepository.findByMail(email);
-        if (!bCryptPasswordEncoder.matches(inputOtp,user.getOtp())){
+        if (!bCryptPasswordEncoder.matches(inputOtp, user.getOtp())) {
             return "misMatchError";
         }
         return "noError";
     }
 
     @Override
-    public String   resetPassword(String email, String password, String confirmPassword) {
-       UserEntity user = userRepository.findByMail(email);
-        if (user==null){
+    public String resetPassword(String email, String password, String confirmPassword) {
+        UserEntity user = userRepository.findByMail(email);
+        if (user == null) {
             return "noMailError";
         }
-        if (!password.equals(confirmPassword)){
+        if (!password.equals(confirmPassword)) {
             return "passwordError";
         }
         user.setPassword(bCryptPasswordEncoder.encode(password));
@@ -165,23 +167,24 @@ public class UserServiceImpl implements UserService{
     public UserDto displayUser(String email) {
         UserEntity user = userRepository.findByMail(email);
         UserDto userDto = new UserDto();
-        BeanUtils.copyProperties(user,userDto);
+        BeanUtils.copyProperties(user, userDto);
         return userDto;
     }
 
     @Override
     public String validateAndUpdate(UserDto dto) {
-        if (dto==null){
+        if (dto == null) {
             return "noDtoError";
         }
-        if (dto.getUserImage()==null ){
+        if (dto.getUserImage() == null) {
             return "noFileError";
         }
-        if (!saveImage(dto)){
+        if (!saveImage(dto)) {
             return "fileNotSaved";
         }
-        UserEntity  entity = new UserEntity();
-        BeanUtils.copyProperties(dto,entity);entity.setUserImageName(dto.getUserImage().getOriginalFilename());
+        UserEntity entity = new UserEntity();
+        BeanUtils.copyProperties(dto, entity);
+        entity.setUserImageName(dto.getUserImage().getOriginalFilename());
         System.err.println(entity);
         userRepository.updateUser(entity);
         return "noErrors";

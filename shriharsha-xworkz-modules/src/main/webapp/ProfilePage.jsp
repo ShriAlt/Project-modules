@@ -73,6 +73,12 @@
             </div>
             <div class="card-body">
                 <dl class="row">
+
+                    <dt class="col-sm-3">Profile Picture</dt>
+                    <dd class="col-sm-9">
+                        <img src="" alt="Profile Picture" class="img-thumbnail" style="max-width: 150px;">
+                    </dd>
+
                     <dt class="col-sm-3">First Name</dt>
                     <dd class="col-sm-9">${dto.firstName}</dd>
 
@@ -104,6 +110,7 @@
                     <dd class="col-sm-9">${dto.pinCode}</dd>
                 </dl>
                 <form id="updateProfileForm" action="UpdateProfilePage" method="post" enctype="multipart/form-data">
+
                     <input type="text" class="form-control" id="id" name="id" value="${dto.id}" hidden>
                     <input type="text" class="form-control" id="password" name="password" value="${dto.password}" hidden>
                     <input type="text" class="form-control" id="firstName" name="firstName" value="${dto.firstName}"hidden>
