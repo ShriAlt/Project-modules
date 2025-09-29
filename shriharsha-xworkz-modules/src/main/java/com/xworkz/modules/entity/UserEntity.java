@@ -15,6 +15,14 @@ import javax.persistence.*;
         name = "findByNumber",
         query = "select entity from UserEntity entity where entity.phoneNumber= :phoneNumber"
 )
+@NamedQuery(
+        name = "findAll",
+        query = "select entity from UserEntity entity"
+)
+@NamedQuery(
+        name = "clearOtp",
+        query = "UPDATE UserEntity u SET u.otp = NULL"
+)
 public class UserEntity {
 
     public UserEntity(){

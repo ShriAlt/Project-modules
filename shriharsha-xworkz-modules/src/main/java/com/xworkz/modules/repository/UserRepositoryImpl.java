@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
+import java.util.Collections;
+import java.util.List;
 
 @Repository
 public class UserRepositoryImpl implements UserRepository{
@@ -122,6 +124,51 @@ public class UserRepositoryImpl implements UserRepository{
             }
             e.printStackTrace();
             return false;
+        } finally {
+            if (entityManager != null && entityManager.isOpen()) {
+                entityManager.close();
+            }
+        }
+    }
+
+    @Override
+    public List<UserEntity> findAll() {
+        EntityManager entityManager = null;
+        List<UserEntity> userEntities = null;
+        try {
+            entityManager = entityManagerFactory.createEntityManager();
+            Query query = entityManager.createNamedQuery("findAll");
+            userEntities =  query.getResultList();
+            return userEntities;
+        }
+        catch (  NoResultException e){
+            e.printStackTrace();
+            return null;
+        }
+        finally {
+            if (entityManager != null && entityManager.isOpen()) {
+                entityManager.close();
+            }
+        }
+    }
+
+    @Override
+    public void cleanUpOtp() {
+        EntityManager entityManager = null;
+        EntityTransaction transaction = null;
+        try {
+            entityManager = entityManagerFactory.createEntityManager();
+            transaction=entityManager.getTransaction();
+            transaction.begin();
+            Query query = entityManager.createNamedQuery("clearOtp");
+            query.executeUpdate();
+            transaction.commit();
+        }
+        catch (Exception e) {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
         } finally {
             if (entityManager != null && entityManager.isOpen()) {
                 entityManager.close();
