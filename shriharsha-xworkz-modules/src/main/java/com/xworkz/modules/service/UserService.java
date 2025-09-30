@@ -2,6 +2,8 @@ package com.xworkz.modules.service;
 
 import com.xworkz.modules.dto.UserDto;
 
+import java.nio.file.Path;
+
 public interface UserService {
  String validateAndSave(UserDto userDto);
   boolean isEmailExist(String email );
@@ -12,5 +14,6 @@ public interface UserService {
     String resetPassword(String email,String password , String confirmPassword);
     UserDto displayUser(String email);
     String  validateAndUpdate(UserDto dto);
+    Path displayUserImg(String email);
 
 }

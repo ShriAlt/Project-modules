@@ -76,9 +76,8 @@
 
                     <dt class="col-sm-3">Profile Picture</dt>
                     <dd class="col-sm-9">
-                        <img src="" alt="Profile Picture" class="img-thumbnail" style="max-width: 150px;">
+                        <img src="displayImage?email=${dto.email}" alt="Profile Picture" class="img-thumbnail" style="max-width: 150px;">
                     </dd>
-
                     <dt class="col-sm-3">First Name</dt>
                     <dd class="col-sm-9">${dto.firstName}</dd>
 

@@ -3,17 +3,20 @@ package com.xworkz.modules.controller;
 import com.xworkz.modules.dto.UserDto;
 import com.xworkz.modules.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 @Controller
@@ -163,5 +166,11 @@ public class UserController {
         return "UpdateProfile";
     }
 
+    @GetMapping("displayImage")
+    @ResponseBody
+    public byte[] displayImage( String email) throws IOException {
+        Path path = userService.displayUserImg(email);
+        return Files.readAllBytes(path);
+    }
 
 }

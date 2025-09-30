@@ -21,7 +21,8 @@ import java.time.LocalDateTime;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private static final String UPLOAD_FILE = "C:/Users/shrih/OneDrive/Pictures/Documents/Project-modules/shriharsha-xworkz-modules/src/main/resources/userImges";
+    private static final String UPLOAD_FILE = "C:/Users/shrih/OneDrive/Pictures/Documents/Project-modules/shriharsha-xworkz-modules/src/main/resources/userImges/";
+    private static final String DEFAULT_FILE = "C:/Users/shrih/OneDrive/Pictures/Documents/Project-modules/shriharsha-xworkz-modules/src/main/resources/defaultImage/";
     @Autowired
     private UserRepository userRepository;
 
@@ -205,4 +206,15 @@ public class UserServiceImpl implements UserService {
         }
         return false;
     }
+
+    @Override
+    public Path displayUserImg(String email) {
+        UserEntity user = userRepository.findByMail(email);
+        Path path = Paths.get(UPLOAD_FILE+user.getUserImageName());
+        if (!Files.exists(path)) {
+            return  Paths.get( DEFAULT_FILE+"defaultUserImg.jpeg");
+        }
+        return path;
+    }
 }
+
