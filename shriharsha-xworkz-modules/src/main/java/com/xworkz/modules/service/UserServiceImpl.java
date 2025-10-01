@@ -8,6 +8,7 @@ import com.xworkz.modules.util.EmailService;
 import com.xworkz.modules.util.OtpUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,7 +23,8 @@ import java.time.LocalDateTime;
 public class UserServiceImpl implements UserService {
 
     private static final String UPLOAD_FILE = "C:/Users/shrih/OneDrive/Pictures/Documents/Project-modules/shriharsha-xworkz-modules/src/main/resources/userImges/";
-    private static final String DEFAULT_FILE = "C:/Users/shrih/OneDrive/Pictures/Documents/Project-modules/shriharsha-xworkz-modules/src/main/resources/defaultImage/";
+    @Value("${image.storage.path}")
+    private  String DEFAULT_FILE ;
     @Autowired
     private UserRepository userRepository;
 
