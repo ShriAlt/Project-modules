@@ -21,7 +21,6 @@ public class EmailConfig  {
     public EmailConfig(){
         System.out.println(" no args of EmailConfig");
     }
-
     @Bean
     public JavaMailSender getJavaMailSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
