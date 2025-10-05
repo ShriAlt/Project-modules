@@ -17,7 +17,6 @@ public class EmailConfig  {
 //
 //    @Value("${email.password}")
 //    private String password;
-
     public EmailConfig(){
         System.out.println(" no args of EmailConfig");
     }
