@@ -75,7 +75,7 @@
             </div>
             <div class="card-body">
                 <form id="updateProfileForm" action="UpdateProfile" method="post" enctype="multipart/form-data">
-
+<img src="getImage/${dto.fileName}">
                     <input type="text" class="form-control" id="id" name="id" value="${dto.id}" hidden>
                     <input type="text" class="form-control" id="password" name="password" value="${dto.password}" hidden>
                     <input type="text" class="form-control" id="confirmPassword" name="confirmPassword" value="${dto.password}" hidden>

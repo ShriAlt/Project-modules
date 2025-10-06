@@ -2,6 +2,7 @@ package com.xworkz.modules.controller;
 
 import com.xworkz.modules.dto.UserDto;
 import com.xworkz.modules.service.UserService;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.MediaType;
@@ -11,9 +12,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -22,6 +25,8 @@ import java.util.List;
 @Controller
 @RequestMapping("/")
 public class UserController {
+
+    private static final String UPLOAD_FILE = "C:/Users/shrih/OneDrive/Pictures/Documents/Project-modules/shriharsha-xworkz-modules/src/main/resources/userImges/";
 
     @Autowired
     UserService userService;
@@ -171,6 +176,20 @@ public class UserController {
     public byte[] displayImage( String email) throws IOException {
         Path path = userService.displayUserImg(email);
         return Files.readAllBytes(path);
+    }
+
+    @GetMapping("getImage/{fileName}")
+    public void readImage(@PathVariable String fileName, HttpServletResponse httpServletResponse) {
+        File file=new File(UPLOAD_FILE+fileName);
+        try{
+            FileInputStream fileInputStream=new FileInputStream(file);
+            InputStream bufferedInputStream=new BufferedInputStream(fileInputStream);
+            ServletOutputStream outputStream = httpServletResponse.getOutputStream();
+            IOUtils.copy(bufferedInputStream,outputStream);
+            httpServletResponse.flushBuffer();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
     }
 
 }
