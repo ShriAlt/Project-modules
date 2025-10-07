@@ -77,6 +77,11 @@ public class UserController {
         }
         return "SignInPage";
     }
+    @GetMapping("hello")
+    @ResponseBody
+    public String hello() {
+        return "Hello Swagger!";
+    }
 
     @PostMapping("login")
     public String loginUser(String email, String password, HttpSession httpSession, Model model) {
