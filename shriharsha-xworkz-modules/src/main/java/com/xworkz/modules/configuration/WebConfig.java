@@ -36,15 +36,6 @@ public class WebConfig implements WebMvcConfigurer {
     public MultipartResolver multipartResolver() {
         return new StandardServletMultipartResolver();
     }
-//    @Override
-//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-//        // Serve Swagger UI webjar
-//        registry.addResourceHandler("/swagger-ui/**")
-//                .addResourceLocations("classpath:/META-INF/resources/webjars/swagger-ui/4.15.5/");
-//
-//        // Serve OpenAPI JSON
-//        registry.addResourceHandler("/v3/api-docs/**")
-//                .addResourceLocations("classpath:/META-INF/resources/");
-//    }
+
 
 }
